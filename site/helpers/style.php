@@ -1,7 +1,17 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: NickCrush
- * Date: 20.09.2018
- * Time: 18:08
- */
+// no direct access
+defined('_JEXEC') or die('Restricted access');
+
+class FAQHelpersStyle
+{
+	function load()
+	{
+		$document = JFactory::getDocument();
+
+		//stylesheets
+		$document->addStylesheet(JURI::base().'components/com_faq/assets/css/style.css');
+
+		//javascripts
+		$document->addScript(JURI::base().'components/com_faq/assets/js/faq.js');
+	}
+}

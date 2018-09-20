@@ -1,7 +1,19 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: NickCrush
- * Date: 20.09.2018
- * Time: 17:31
+ * @package     FAQ
+ * @copyright   Copyright (C) 2018 Nikolai N. Demin All rights reserved.
+ * @license     MIT license: http://codemirror.net/LICENSE
  */
+
+// no direct access
+defined( '_JEXEC' ) or die( 'Restricted access' );
+
+//Display partial views
+class FAQViewsCategoryPhtml extends JViewHTML
+{
+	function render()
+	{
+		return parent::render();
+	}
+}

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * @package   FAQ
+ * @copyright Copyright (C) 2018 Nikolai N. Demin All rights reserved.
+ * @license   MIT license: http://codemirror.net/LICENSE
+-->
+<extension version="3.5.0" type="component" method="upgrade">
+    <name>FAQ</name>
+    <creationDate>2018-09-20</creationDate>
+    <author>Nikolai N. Demin</author>
+    <authorEmail>demin.nikolai@inbox.ru</authorEmail>
+    <authorUrl>https://www.upwork.com/fl/nikolaidemin</authorUrl>
+    <copyright>Copyright (c)2018 Nikolai N. Demin</copyright>
+    <license>MIT license: http://codemirror.net/LICENSE</license>
+    <version>1.0.0</version>
+    <description>FAQ Component</description>
+
+    <!-- Install db table -->
+    <install>
+        <sql>
+            <file charset="utf8" driver="mysql">mysql.install.sql</file>
+        </sql>
+    </install>
+
+    <files folder="site">
+        <folder>assets</folder>
+        <folder>controllers</folder>
+        <folder>helpers</folder>
+        <folder>languages</folder>
+        <folder>models</folder>
+        <folder>tables</folder>
+        <folder>views</folder>
+        <filename>index.html</filename>
+        <filename>faq.php</filename>
+        <filename>router.php</filename>
+    </files>
+
+    <scriptfile>install.php</scriptfile>
+
+    <languages folder="site">
+        <language tag="en-GB">languages/en-GB/en-GB.com_faq.ini</language>
+    </languages>
+
+    <administration>
+        <menu link="option=com_faq" img="components/com_faq/assets/images/faq_icon.png">COM_FAQ</menu>
+        <submenu>
+            <menu view="settings" img="components/com_faq/assets/images/settings_icon.png"
+                  alt="FAQ/Settings">COM_FAQ_SETTINGS
+            </menu>
+        </submenu>
+        <files folder="admin">
+            <folder>controllers</folder>
+            <folder>languages</folder>
+            <folder>models</folder>
+            <folder>views</folder>
+            <filename>faq.php</filename>
+            <filename>index.html</filename>
+            <filename>install.sql</filename>
+        </files>
+
+        <languages folder="admin">
+            <language tag="en-GB">languages/en-GB/en-GB.com_faq.ini</language>
+            <language tag="en-GB">languages/en-GB/en-GB.com_faq.sys.ini</language>
+        </languages>
+    </administration>
+</extension>
