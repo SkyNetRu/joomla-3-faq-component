@@ -13,17 +13,26 @@ defined( '_JEXEC' ) or die( 'Restricted access' );
 JLoader::registerPrefix('FAQ', JPATH_COMPONENT_ADMINISTRATOR);
 
 //Load plugins
-JPluginHelper::importPlugin('faq');
+JPluginHelper::importPlugin('FAQ');
 
 //application
 $app = JFactory::getApplication();
 
-// Require specific controller if requested
-$controller = $app->input->get('controller','display');
-// Create the controller
+$task = $app->input->getCmd('task', null);
+if ($task){
+	$controllername = explode(".", $task)[0];
+	$methodname = explode(".", $task)[1];
+	$classname = 'FAQControllers'.ucwords($controllername);
+	$controller = new $classname();
+	$controller->$methodname();
+} else {
+	// Require specific controller if requested
+	$controller = $app->input->get('controller','default');
 
-$classname  = 'FAQControllers'.ucwords($controller);
-$controller = new $classname();
+// Create the controller
+	$classname  = 'FAQControllers'.ucwords($controller);
+	$controller = new $classname();
 
 // Perform the Request task
-$controller->execute();
+	$controller->execute();
+}

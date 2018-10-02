@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * @package   FAQ
+ * @copyright Copyright (C) 2018 Nikolai N. Demin All rights reserved.
+ * @license   MIT license: http://codemirror.net/LICENSE
+-->
+<form>
+    <fieldset>
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="name"
+                type="text"
+                label="FAQ_TITLE"
+                size="40"
+                class="inputbox"
+                default=""
+        />
+        <field
+                name="alias"
+                type="text"
+                label="FAQ_ALIAS"
+                size="40"
+                class="inputbox"
+                default=""
+        />
+        <field
+                name="checkbox"
+                type="checkbox"
+                label="FAQ_PUBLISHED"
+                default="1"
+        />
+        <field
+                name="checkbox"
+                type="checkbox"
+                label="FAQ_FEATURED"
+                default="0"
+        />
+        <field
+                type="language"
+                value="*"
+                label="FAQ_LANGUAGE" >
+            <option>FAQ_ALL</option>
+        </field>
+    </fieldset>
+</form>

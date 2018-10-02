@@ -1,6 +1,4 @@
 <?php
-
-
 /**
  * @package     FAQ
  * @copyright   Copyright (C) 2018 Nikolai N. Demin All rights reserved.
@@ -17,7 +15,7 @@ class FAQViewsCategoryHtml extends JViewHtml
 		$layout = $app->input->get('layout');
 
 		//retrieve task list from model
-		$categoryModel = new FAQModelCategory();
+		$categoryModel = new FAQModelsCategory();
 
 		switch($layout) {
 

@@ -28,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `#__faq_sections` (
   PRIMARY KEY (`id`)
 );
 
-CREATE TABLE `#__faq_questions` (
+CREATE TABLE IF NOT EXISTS `#__faq_questions` (
   `id` INT(11) NOT NULL AUTO_INCREMENT ,
   `question` TEXT NOT NULL ,
   `answer` TEXT NOT NULL ,

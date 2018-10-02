@@ -8,8 +8,10 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class FAQControllersDisplay extends JControllerBase
+class FAQControllersDefault extends JControllerBase
 {
+	protected $default_view = 'categories';
+
 	public function execute()
 	{
 		// Get the application
@@ -18,7 +20,7 @@ class FAQControllersDisplay extends JControllerBase
 		// Get the document object.
 		$document     = JFactory::getDocument();
 
-		$viewName     = $app->input->getWord('view', 'categories');
+		$viewName     = $app->input->getWord('view', $this->default_view);
 		$viewFormat   = $document->getType();
 		$layoutName   = $app->input->getWord('layout', 'default');
 		$app->input->set('view', $viewName);
