@@ -16,36 +16,23 @@ class FAQViewsCategoryHtml extends JViewHtml
 	 */
 	protected $form = null;
 
-
-
-
 	function render()
 	{
 		$app = JFactory::getApplication();
-		$layout = $app->input->get('layout', 'edit');
-
-		//retrieve task list from model
-//		$categoryModelForm = new FAQModelsCategoryform();
-//		$categoryModel = new FAQModelsCategory();
-
-		// Get the Data
-//		$this->form = $categoryModelForm->getForm();
-//		$this->category = $categoryModel->getItem();
-
-		//$this->form = $this->get('Form');
-		//$this->category = $categoryModel->getItem();
-
-
-
-//		JHtmlSidebar::setAction('index.php?option=com_falang&view=categories');
-//
-//		JHtmlSidebar::addEntry(JText::_('COM_FAQ_CATEGORIES_MENU_POINT'), 'index.php?option=com_falang&view=categories', true);
-//		JHtmlSidebar::addEntry(JText::_('COM_FAQ_SECTIONS_MENU_POINT'), 'index.php?option=com_falang&view=sections');
-//		JHtmlSidebar::addEntry(JText::_('COM_FAQ_QUESTIONS_MENU_POINT'), 'index.php?option=com_falang&view=questions');
-//		JHtmlSidebar::addEntry(JText::_('COM_FAQ_SETTINGS_MENU_POINT'), 'index.php?option=com_falang&view=settings');
-//
-//		$this->sidebar = JHtmlSidebar::render();
-
+		$pathToMyXMLFile = JPATH_COMPONENT_ADMINISTRATOR.'/models/forms/category.xml';
+		$this->form = &JForm::getInstance('form', $pathToMyXMLFile);
+		$this->task = 'category.store';
+		$this->category_id = $app->input->get('cid', 'int');
+		if ($this->category_id) {
+			$categoryModel = new FAQModelsCategory();
+			$categoryModel->_category_id = $this->category_id;
+			$this->category = $categoryModel->getItem();
+			foreach ($this->category as $key => $value) {
+				$this->form->setValue($key, '', $value);
+			}
+		}
+		$this->published = JHTML::_('select.booleanlist', 'published', 'class="inputbox"', 1);
+		$this->featured = JHTML::_('select.booleanlist', 'featured', 'class="inputbox"', 0);
 		$this->addToolbar();
 
 		//display
@@ -63,10 +50,10 @@ class FAQViewsCategoryHtml extends JViewHtml
 		if ($canDo->get('core.admin'))
 		{
 			JToolbarHelper::preferences('com_faq');
-			JToolbarHelper::title(JText::_('COM_FAQ_CATEGORY'));
-			JToolBarHelper::apply();
-			JToolBarHelper::save();
-			JToolBarHelper::cancel();
+			JToolbarHelper::title(JText::_('FAQ_ADD_CATEGORY'));
+			JToolBarHelper::apply('category.save');
+			JToolBarHelper::save('category.save_and_close');
+			JToolBarHelper::cancel('category.cancel');
 
 		}
 	}

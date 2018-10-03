@@ -80,6 +80,24 @@ class FAQModelsDefault extends JModelBase
 	}
 
 	/**
+	 * Gets row object from the results of database query.
+	 *
+	 * @param string $query The query.
+	 *
+	 * @return array An array of results.
+	 *
+	 * @since 11.1
+	 */
+	protected function _getRow($query)
+	{
+		$db = JFactory::getDBO();
+		$db->setQuery($query);
+		$result = $db->loadObject();
+
+		return $result;
+	}
+
+	/**
 	 * Build query and where for protected _getList function and return a list
 	 *
 	 * @return array An array of results.
@@ -89,6 +107,20 @@ class FAQModelsDefault extends JModelBase
 		$query = $this->_buildQuery();
 		$query = $this->_buildWhere($query);
 		$list = $this->_getList($query, $this->limitstart, $this->limit);
+
+		return $list;
+	}
+
+	/**
+	 * Build query and where for protected _getList function and return a list
+	 *
+	 * @return array An array of results.
+	 */
+	public function getItem()
+	{
+		$query = $this->_buildQuery();
+		$query = $this->_buildWhere($query);
+		$list = $this->_getRow($query);
 
 		return $list;
 	}
@@ -146,35 +178,7 @@ class FAQModelsDefault extends JModelBase
 		return $this->_total;
 	}
 
-//	/**
-//	 * Generate pagination
-//	 */
-//	function getPagination()
-//	{
-//		// Lets load the content if it doesn't already exist
-//		if (empty($this->_pagination))
-//		{
-//			$this->_pagination = new JPagination( $this->getTotal(), $this->getState($this->_view.'_limitstart'), $this->getState($this->_view.'_limit'),null,JRoute::_('index.php?view='.$this->_view.'&layout='.$this->_layout));
-//		}
-//		return $this->_pagination;
-//	}
-//
-//	/**
-//	 * Build a query, where clause and return an object
-//	 *
-//	 */
-//	public function getItem()
-//	{
-//		$db = JFactory::getDBO();
-//
-//		$query = $this->_buildQuery();
-//		$this->_buildWhere($query);
-//		$db->setQuery($query);
-//
-//		$item = $db->loadObject();
-//
-//		return $item;
-//	}
+
 
 	/**
 	 * Save data in db
@@ -210,5 +214,23 @@ class FAQModelsDefault extends JModelBase
 		}
 
 		return $row;
+	}
+
+	/**
+	 * Get order position
+	 * @return int
+	 */
+	public function getNextOrder($where = '', $table, $column = 'ordering')
+	{
+		$query = "SELECT MAX({$column}) FROM #__".$table;
+		$query .= ($where ? " WHERE ".$where." " : "");
+		$this->_db->setQuery($query);
+		$maxord = $this->_db->loadResult();
+		if ($this->_db->getErrorNum())
+		{
+			$this->setError($this->_db->getErrorMsg());
+			return false;
+		}
+		return $maxord + 1;
 	}
 }

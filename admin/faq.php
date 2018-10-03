@@ -18,6 +18,9 @@ JPluginHelper::importPlugin('FAQ');
 //application
 $app = JFactory::getApplication();
 
+//Load styles and javascripts
+FAQHelpersStyle::load();
+
 $task = $app->input->getCmd('task', null);
 if ($task){
 	$controllername = explode(".", $task)[0];

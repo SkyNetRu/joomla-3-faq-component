@@ -35,6 +35,12 @@
         <filename>router.php</filename>
     </files>
 
+    <!--<media folder="media" destination="com_faq">-->
+        <!--<folder>css</folder>-->
+        <!--<folder>js</folder>-->
+        <!--<folder>images</folder>-->
+    <!--</media>-->
+
     <scriptfile>install.php</scriptfile>
 
     <languages folder="site">
@@ -49,6 +55,7 @@
             </menu>
         </submenu>
         <files folder="admin">
+            <folder>assets</folder>
             <folder>controllers</folder>
             <folder>languages</folder>
             <folder>helpers</folder>

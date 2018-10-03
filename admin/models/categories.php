@@ -15,6 +15,7 @@ class FAQModelsCategories extends FAQModelsDefault
 	 * Protected fields
 	 *
 	 */
+	var $_category_ids = null;
 	var $_published = 1;
 	var $_featured = null;
 	var $_trash = null;
@@ -44,28 +45,13 @@ class FAQModelsCategories extends FAQModelsDefault
 
 		foreach ($categories as $key => $category) {
 			$sectionModel->_category_id = $category->id;
-			$categories[$key]->questions = $sectionModel->listItems();
+			$categories[$key]->sections = $sectionModel->listItems();
 		}
 
 		return $categories;
 	}
 
-	/**
-	 * Get the category.
-	 *
-	 * @return  object.
-	 *
-	 */
-	function getItem()
-	{
-		$category = parent::getItem();
 
-		$sectionModel = new FAQModelsSection();
-		$sectionModel->set('_category_id',$this->_category_id);
-		$category->sections = $sectionModel->listItems();
-
-		return $category;
-	}
 
 	/**
 	 * Builds the query to be used by the book model
@@ -92,9 +78,13 @@ class FAQModelsCategories extends FAQModelsDefault
 	protected function _buildWhere(&$query)
 	{
 
-		if(is_numeric($this->_category_id))
+		if(is_string($this->_category_ids))
 		{
-			$query->where('c.id = ' . (int) $this->_category_id);
+			$query->where('c.id IN ' . (string) $this->_category_ids);
+		}
+		else if (is_array($this->_category_ids))
+		{
+			$query->where('c.id IN ' . (string) implode ( ', ' , $this->_category_ids ));
 		}
 
 		if(is_numeric($this->_trash))

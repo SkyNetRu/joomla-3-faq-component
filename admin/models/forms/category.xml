@@ -17,6 +17,7 @@
                 size="40"
                 class="inputbox"
                 default=""
+                required="true"
         />
         <field
                 name="alias"
@@ -24,25 +25,20 @@
                 label="FAQ_ALIAS"
                 size="40"
                 class="inputbox"
+                hint="FAQ_ALIAS_PLACEHOLDER"
                 default=""
         />
         <field
-                name="checkbox"
-                type="checkbox"
-                label="FAQ_PUBLISHED"
-                default="1"
-        />
-        <field
-                name="checkbox"
-                type="checkbox"
-                label="FAQ_FEATURED"
-                default="0"
-        />
-        <field
-                type="language"
-                value="*"
+                name="language"
+                type="contentlanguage"
                 label="FAQ_LANGUAGE" >
-            <option>FAQ_ALL</option>
+            <option value="*">FAQ_ALL</option>
         </field>
+        <field
+                name="description"
+                type="editor"
+                label="FAQ_DESCRIPTION"
+                buttons="true"
+        />
     </fieldset>
 </form>

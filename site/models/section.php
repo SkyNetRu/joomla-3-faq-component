@@ -100,7 +100,7 @@ class FAQModelsSection extends FAQModelsDefault
 			$query->where('s.language = ' . (STRING) $this->_language);
 		}
 
-		$query->where('l.published = '. (int) $this->_published);
+		$query->where('s.published = '. (int) $this->_published);
 
 		return $query;
 	}
