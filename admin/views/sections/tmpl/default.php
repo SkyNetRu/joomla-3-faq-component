@@ -23,65 +23,70 @@ defined('_JEXEC') or die('Restricted Access');
 				<?php } ?>
                 <div class="table-responsive-wrap">
                     <div class="table-responsive">
-                        <form action="index.php?option=com_faq&view=categories" method="post" id="adminForm" name="adminForm">
+                        <form action="index.php?option=com_faq&view=sections" method="post" id="adminForm" name="adminForm">
                             <table class="adminlist table table-striped" id="FAQCategoriesList">
                                 <thead>
                                 <tr>
                                     <th width="1%" class="center hidden-phone">
-										<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 'c.ordering', @$this->lists['order_Dir'], @$this->lists['order'], null, 'asc', 'FAQ_ORDER'); ?>
+										<?php echo JHtml::_('grid.sort', '<i class="icon-menu-2"></i>', 's.ordering', @$this->lists['order_Dir'], @$this->lists['order'], null, 'asc', 'FAQ_ORDER'); ?>
                                     </th>
                                     <th width="1%">
                                         <input id="jToggler" type="checkbox" name="toggle" value=""/>
                                     </th>
                                     <th>
-										<?php echo JHTML::_('grid.sort', 'FAQ_TITLE', 'c.name', @$this->lists['order_Dir'], @$this->lists['order']); ?>
+										<?php echo JHTML::_('grid.sort', 'FAQ_TITLE', 's.name', @$this->lists['order_Dir'], @$this->lists['order']); ?>
                                     </th>
                                     <th>
-										<?php echo JHTML::_('grid.sort', 'FAQ_ORDER', 'c.ordering', $this->sortDirection, $this->sortColumn); ?><?php echo $this->ordering ? JHTML::_('grid.order', $this->rows, 'filesave.png') : ''; ?>
+		                                <?php echo JHTML::_('grid.sort', 'FAQ_CATEGORY', 'c.name', @$this->lists['order_Dir'], @$this->lists['order']); ?>
+                                    </th>
+                                    <th>
+										<?php echo JHTML::_('grid.sort', 'FAQ_ORDER', 's.ordering', $this->sortDirection, $this->sortColumn); ?><?php echo $this->ordering ? JHTML::_('grid.order', $this->rows, 'filesave.png') : ''; ?>
                                     </th>
                                     <th class="">
-										<?php echo JHTML::_('grid.sort', 'FAQ_PUBLISHED', 'c.published', @$this->lists['order_Dir'], @$this->lists['order']); ?>
+										<?php echo JHTML::_('grid.sort', 'FAQ_PUBLISHED', 's.published', @$this->lists['order_Dir'], @$this->lists['order']); ?>
                                     </th>
                                     <th class="">
-										<?php echo JHTML::_('grid.sort', 'FAQ_FEATURED', 'c.featured', @$this->lists['order_Dir'], @$this->lists['order']); ?>
+										<?php echo JHTML::_('grid.sort', 'FAQ_FEATURED', 's.featured', @$this->lists['order_Dir'], @$this->lists['order']); ?>
                                     </th>
-                                    <th class="hidden-phone"> <?php echo JHTML::_('grid.sort', 'FAQ_LANGUAGE', 'c.language', @$this->lists['order_Dir'], @$this->lists['order']); ?> </th>
+                                    <th class="hidden-phone"> <?php echo JHTML::_('grid.sort', 'FAQ_LANGUAGE', 's.language', @$this->lists['order_Dir'], @$this->lists['order']); ?> </th>
                                     <th class="hidden-phone center">
-										<?php echo JHTML::_('grid.sort', 'FAQ_ID', 'c.id', @$this->lists['order_Dir'], @$this->lists['order']); ?>
+										<?php echo JHTML::_('grid.sort', 'FAQ_ID', 's.id', @$this->lists['order_Dir'], @$this->lists['order']); ?>
                                     </th>
                                 </tr>
                                 </thead>
 
                                 <tbody>
-								<?php foreach (@$this->categories as $key => $category) { ?>
+								<?php foreach (@$this->sections as $key => $section) { ?>
                                     <tr>
                                         <td>
                                             <span class="sortable-handler   rel="tooltip"><i class="icon-menu"></i></span>
-                                            <input type="text" style="display:none"  name="order[]" size="5" value="<?php echo $category->ordering;?>" class="width-20 text-area-order " />
+                                            <input type="text" style="display:none"  name="order[]" size="5" value="<?php echo $section->ordering;?>" class="width-20 text-area-order " />
                                         </td>
                                         <td>
-											<?php echo @JHTML::_('grid.checkedout', $category, $key );?>
+											<?php echo @JHTML::_('grid.checkedout', $section, $key );?>
                                         </td>
                                         <td>
-                                            <a href="<?php echo JRoute::_('index.php?option=com_faq&view=category&task=category.edit&cid='.$category->id, false); ?>">
-                                                <?php echo $category->name; ?>
+                                            <a href="<?php echo JRoute::_('index.php?option=com_faq&view=sections&task=section.edit&sid='.$section->id, false); ?>">
+                                                <?php echo $section->name; ?>
                                             </a>
-
                                         </td>
                                         <td>
-											<?php echo $category->ordering; ?>
+	                                        <?php echo $section->category_name; ?>
                                         </td>
                                         <td>
-											<?php echo $category->published; ?>
+											<?php echo $section->ordering; ?>
                                         </td>
                                         <td>
-											<?php echo $category->featured; ?>
+											<?php echo $section->published; ?>
                                         </td>
                                         <td>
-											<?php echo $category->language; ?>
+											<?php echo $section->featured; ?>
                                         </td>
                                         <td>
-											<?php echo $category->id; ?>
+											<?php echo $section->language; ?>
+                                        </td>
+                                        <td>
+											<?php echo $section->id; ?>
                                         </td>
                                     </tr>
 								<?php } ?>

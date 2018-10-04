@@ -38,12 +38,6 @@ CREATE TABLE IF NOT EXISTS `#__faq_questions` (
   `featured` TINYINT NOT NULL DEFAULT '0' ,
   `trash` TINYINT NOT NULL DEFAULT '0' ,
   `language` VARCHAR(10) NOT NULL DEFAULT '*' ,
-  `created` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `modified` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `modified_by` INT(11) NOT NULL ,
-  `created_by` INT(11) NOT NULL ,
-  `publish_up` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ,
-  `publish_down` DATETIME NOT NULL ,
   PRIMARY KEY (`id`)
 );
 

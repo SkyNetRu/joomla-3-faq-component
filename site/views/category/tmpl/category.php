@@ -1,4 +1,4 @@
-<a href="/<?php echo JRoute::_('index.php?option=com_faq&view=category&layout=list'); ?>"><i></i> <?php echo JText::_('COM_FAQ_BACK'); ?></a>
+<a href="/<?php echo JRoute::_('index.php?option=com_faq&view=category&layout=list', false); ?>"><i></i> <?php echo JText::_('COM_FAQ_BACK'); ?></a>
 <h2><?php echo $this->category->name; ?></h2>
 <div>
 	<div>

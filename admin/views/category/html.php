@@ -22,7 +22,7 @@ class FAQViewsCategoryHtml extends JViewHtml
 		$pathToMyXMLFile = JPATH_COMPONENT_ADMINISTRATOR.'/models/forms/category.xml';
 		$this->form = &JForm::getInstance('form', $pathToMyXMLFile);
 		$this->task = 'category.store';
-		$this->category_id = $app->input->get('cid', 'int');
+		$this->category_id = $app->input->get('cid', null);
 		if ($this->category_id) {
 			$categoryModel = new FAQModelsCategory();
 			$categoryModel->_category_id = $this->category_id;

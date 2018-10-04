@@ -233,4 +233,8 @@ class FAQModelsDefault extends JModelBase
 		}
 		return $maxord + 1;
 	}
+
+	public function generateAlias ($name) {
+		return str_replace(' ', '_', preg_replace('/[^ a-zа-яё\d]/ui', '',strtolower($name)));
+	}
 }

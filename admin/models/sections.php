@@ -9,13 +9,14 @@
 // no direct access
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class FAQModelsCategories extends FAQModelsDefault
+class FAQModelsSections extends FAQModelsDefault
 {
 	/**
 	 * Protected fields
 	 *
 	 */
-	var $_category_ids = null;
+	var $_section_ids = null;
+	var $_category_id = null;
 	var $_published = 1;
 	var $_featured = null;
 	var $_trash = null;
@@ -25,33 +26,32 @@ class FAQModelsCategories extends FAQModelsDefault
 	{
 		parent::__construct();
 		$app = JFactory::getApplication();
-		$this->_section_id   = $app->input->get('section_id',null);
-		$this->_category_ids = $app->input->get('category_ids',null);
-		$this->_published    = $app->input->get('published',1);
-		$this->_featured     = $app->input->get('featured',null);
-		$this->_language     = $app->input->get('language',null);
-		$this->_trash        = $app->input->get('trash',null);
+		$this->_section_id  = $app->input->get('section_ids',null);
+		$this->_category_id = $app->input->get('category_id',null);
+		$this->_published   = $app->input->get('published',1);
+		$this->_featured    = $app->input->get('featured',null);
+		$this->_trash       = $app->input->get('trash',null);
+		$this->_language    = $app->input->get('language',null);
 	}
 
 	/**
-	 * Get the list of categories.
+	 * Get the list of sections.
 	 *
 	 * @return  array.
 	 *
 	 */
 	function listItems()
 	{
-		$sectionModel = new FAQModelsSection();
-		$categories = parent::listItems();
+		$questionsModel = new FAQModelsQuestions();
+		$sections = parent::listItems();
 
-		foreach ($categories as $key => $category) {
-			$sectionModel->_category_id = $category->id;
-			$categories[$key]->sections = $sectionModel->listItems();
+		foreach ($sections as $key => $section) {
+			$questionsModel->_section_id = $section->id;
+			$sections[$key]->questions = $questionsModel->listItems();
 		}
 
-		return $categories;
+		return $sections;
 	}
-
 
 
 	/**
@@ -64,9 +64,9 @@ class FAQModelsCategories extends FAQModelsDefault
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 
-		$query->select('c.*');
-		$query->from('#__faq_categories as c');
-
+		$query->select('s.*, c.name as category_name');
+		$query->from('#__faq_sections as s');
+		$query->join('LEFT', '#__faq_categories as c ON c.id = s.category_id');
 		return $query;
 	}
 

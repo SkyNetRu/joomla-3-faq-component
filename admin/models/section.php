@@ -46,38 +46,47 @@ class FAQModelsSection extends FAQModelsDefault
 
 		$questionsModel = new FAQModelsQuestions();
 		$questionsModel->set('_section_id',$this->_section_id);
-		$section->questions = $questionsModel->listItems();
+		$questions = $questionsModel->listItems();
+		if ($questions){
+			$section->questions = $questions;
+		}
 
 		return $section;
 	}
 
-
-	/**
-	 * Get the list of sections.
-	 *
-	 * @return  array.
-	 *
-	 */
-	function listItems()
+	public function updateSection ($input = null)
 	{
-		$questionsModel = new FAQModelsQuestions();
-		$sections = parent::listItems();
-
-		foreach ($sections as $key => $section) {
-			$questionsModel->_section_id = $section->id;
-			$sections[$key]->questions = $questionsModel->listItems();
+		$section = (object) $input;
+		if (!$section->alias) {
+			$section->alias = str_replace(' ', '_', preg_replace('/[^ a-zа-яё\d]/ui', '',strtolower($section->name)));
 		}
 
-		return $sections;
+		return JFactory::getDbo()->updateObject('#__faq_sections', $section, 'id');
 	}
+
+	public function addSection ($input = null)
+	{
+		$section = (object) $input;
+		unset($section->id);
+		if (!$section->alias) {
+			$section->alias = str_replace(' ', '_', preg_replace('/[^ a-zа-яё\d]/ui', '',strtolower($section->name)));
+		}
+
+		$section->ordering = $this->getNextOrder('trash=0', 'faq_sections');
+
+		return JFactory::getDbo()->insertObject('#__faq_sections', $section);
+	}
+
+
 
 	protected function _buildQuery()
 	{
 		$db = JFactory::getDBO();
 		$query = $db->getQuery(TRUE);
 
-		$query->select("s.name, s.alias, s.description");
-		$query->from("#__faq_sections as s");
+		$query->select('s.*, c.name as category_name');
+		$query->from('#__faq_sections as s');
+		$query->join('LEFT', '#__faq_categories as c ON c.id = s.category_id');
 
 		return $query;
 	}

@@ -8,14 +8,14 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class FAQControllersCategory extends FAQControllersDefault
+class FAQControllersSection extends FAQControllersDefault
 {
 
 	public function add()
 	{
 		$app = JFactory::getApplication();
 		$app->input->set('layout','edit');
-		$app->input->set('view', 'category');
+		$app->input->set('view', 'section');
 		//display view
 		return parent::execute();
 	}
@@ -36,21 +36,22 @@ class FAQControllersCategory extends FAQControllersDefault
 			'published' => 'bool',
 			'featured' => 'bool',
 			'language' => 'string',
-			'description' => 'string'
+			'description' => 'string',
+			'category_id' => 'int'
 		));
 
-		$categoryModel = new FAQModelsCategory();
+		$sectionModel = new FAQModelsSection();
 		if ($input_values['id'] > 0){
-			if ($categoryModel->updateCategory($input_values)){
-				$app->enqueueMessage(JText::_('FAQ_CATEGORY_UPDATED'), 'success');
+			if ($sectionModel->updateSection($input_values)){
+				$app->enqueueMessage(JText::_('FAQ_SECTION_UPDATED'), 'success');
 			}
 		} else {
-			if ($categoryModel->addCategory($input_values)){
-				$app->enqueueMessage(JText::_('FAQ_CATEGORY_ADDED'), 'success');
+			if ($sectionModel->addSection($input_values)){
+				$app->enqueueMessage(JText::_('FAQ_SECTION_ADDED'), 'success');
 			}
 		}
 
-		$app->redirect(JRoute::_('index.php?option=com_faq&view=categories', false));
+		$app->redirect(JRoute::_('index.php?option=com_faq&view=sections', false));
 	}
 
 	public function save_and_close ()
@@ -61,6 +62,6 @@ class FAQControllersCategory extends FAQControllersDefault
 	public function cancel ()
 	{
 		$app = JFactory::getApplication();
-		$app->redirect(JRoute::_('index.php?option=com_faq&view=categories', false));
+		$app->redirect(JRoute::_('index.php?option=com_faq&view=sections', false));
 	}
 }

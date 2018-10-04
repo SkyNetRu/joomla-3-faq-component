@@ -1,5 +1,5 @@
 <div>
-	<a href="/<?php echo JRoute::_('index.php?option=com_faq&view=category&layout=category&id='.$this->category->id); ?>">
+	<a href="/<?php echo JRoute::_('index.php?option=com_faq&view=category&layout=category&id='.$this->category->id, false); ?>">
 		<?php echo $this->category->name; ?>
 	</a>
 <!--	<div>-->

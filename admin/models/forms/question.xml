@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+ * @package   FAQ
+ * @copyright Copyright (C) 2018 Nikolai N. Demin All rights reserved.
+ * @license   MIT license: http://codemirror.net/LICENSE
+-->
+<form>
+    <fieldset>
+        <field
+                name="id"
+                type="hidden"
+        />
+        <field
+                name="question"
+                type="text"
+                label="FAQ_QUESTION"
+                size="255"
+                class="inputbox"
+                default=""
+                required="true"
+        />
+        <field
+                name="language"
+                type="contentlanguage"
+                label="FAQ_LANGUAGE" >
+            <option value="*">FAQ_ALL</option>
+        </field>
+        <field
+                name="answer"
+                type="editor"
+                label="FAQ_ANSWER"
+                buttons="true"
+        />
+    </fieldset>
+</form>

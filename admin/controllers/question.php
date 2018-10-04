@@ -8,14 +8,14 @@
 
 defined( '_JEXEC' ) or die( 'Restricted access' );
 
-class FAQControllersCategory extends FAQControllersDefault
+class FAQControllersQuestion extends FAQControllersDefault
 {
 
 	public function add()
 	{
 		$app = JFactory::getApplication();
 		$app->input->set('layout','edit');
-		$app->input->set('view', 'category');
+		$app->input->set('view', 'question');
 		//display view
 		return parent::execute();
 	}
@@ -32,25 +32,26 @@ class FAQControllersCategory extends FAQControllersDefault
 		$input_values = $jinput->getArray(array(
 			'id' => 'int',
 			'name' => 'string',
-			'alias' => 'string',
 			'published' => 'bool',
 			'featured' => 'bool',
 			'language' => 'string',
-			'description' => 'string'
+			'question' => 'string',
+			'answer' => 'string',
+			'section_id' => 'int'
 		));
 
-		$categoryModel = new FAQModelsCategory();
+		$questionModel = new FAQModelsQuestion();
 		if ($input_values['id'] > 0){
-			if ($categoryModel->updateCategory($input_values)){
-				$app->enqueueMessage(JText::_('FAQ_CATEGORY_UPDATED'), 'success');
+			if ($questionModel->updateQuestion($input_values)){
+				$app->enqueueMessage(JText::_('FAQ_QUESTION_UPDATED'), 'success');
 			}
 		} else {
-			if ($categoryModel->addCategory($input_values)){
-				$app->enqueueMessage(JText::_('FAQ_CATEGORY_ADDED'), 'success');
+			if ($questionModel->addQuestion($input_values)){
+				$app->enqueueMessage(JText::_('FAQ_QUESTION_ADDED'), 'success');
 			}
 		}
 
-		$app->redirect(JRoute::_('index.php?option=com_faq&view=categories', false));
+		$app->redirect(JRoute::_('index.php?option=com_faq&view=questions', false));
 	}
 
 	public function save_and_close ()
@@ -61,6 +62,6 @@ class FAQControllersCategory extends FAQControllersDefault
 	public function cancel ()
 	{
 		$app = JFactory::getApplication();
-		$app->redirect(JRoute::_('index.php?option=com_faq&view=categories', false));
+		$app->redirect(JRoute::_('index.php?option=com_faq&view=questions', false));
 	}
 }
